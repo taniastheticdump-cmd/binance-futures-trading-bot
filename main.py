@@ -16,12 +16,15 @@ def get_valid_input(prompt, validator):
             return validator(value)
         except ValueError as e:
             print(f"⚠️  Invalid input: {e}. Please try again.")
-
-
+                  
 def main():
     print("=== Binance Futures Testnet Trading Bot ===")
 
-    symbol = input("Enter symbol (eg. BTCUSDT): ").upper()
+    symbol = input("Enter symbol (eg. BTCUSDT): ").strip().upper()
+    if not symbol.isalnum():
+        print("Invalid symbol.")
+        return
+
     side = get_valid_input("Enter side (BUY/SELL): ", validate_side)
     order_type = get_valid_input(
         "Enter order type (MARKET/LIMIT/STOP_LIMIT): ", validate_order_type
